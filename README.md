@@ -1,0 +1,1 @@
+React native app project for the Full Stack Open course [part 10](https://fullstackopen.com/en/part10)
