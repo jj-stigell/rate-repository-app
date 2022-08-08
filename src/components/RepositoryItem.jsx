@@ -1,22 +1,8 @@
-import { Text } from 'react-native';
+import Card from './Card';
 
 const RepositoryItem = ({ repoinfo }) => {
   return (
-    <Text>
-      Full name: {repoinfo.fullName}
-      {"\n"}
-      Description: {repoinfo.description}
-      {"\n"}
-      Language: {repoinfo.language}
-      {"\n"}
-      Starts: {repoinfo.stargazersCount}
-      {"\n"}
-      Forks: {repoinfo.forksCount}
-      {"\n"}
-      Reviews: {repoinfo.reviewCount}
-      {"\n"}
-      Rating: {repoinfo.ratingAverage}
-    </Text>
+    <Card repoinfo={repoinfo} />
   );
 };
 

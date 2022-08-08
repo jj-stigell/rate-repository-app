@@ -6,6 +6,12 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.background,
+    paddingBottom: 30,
+    paddingLeft: 10,
+  },
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
@@ -13,7 +19,7 @@ const AppBar = () => {
   return (
     <View style={styles.container}>
       <Pressable onPress={() => console.log("Works")}>
-        <Text>Repositories</Text>
+        <Text style={styles.text}>Repositories</Text>
       </Pressable>
     </View>
   );
