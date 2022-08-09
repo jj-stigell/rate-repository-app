@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import theme from '../theme';
 import Text from './Text';
 
 const formNumbers = (number) => number > 1000 ? (number / 1000).toFixed(1) + "k" : number;
@@ -22,6 +21,7 @@ const cardHeaderStyles = StyleSheet.create({
   },
   infoContainer: {
     flexGrow: 1,
+    marginRight: 50,
   },
 });
 
@@ -42,6 +42,7 @@ const CardHeader = ({ image, author, description }) => {
 const cardBodyStyles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    textAlign: 'center',
     padding: 6,
     flex: 1,
     borderRadius: 4,
@@ -108,22 +109,15 @@ const CardFooter = ({ stars, forks, reviews, rating }) => {
 const cardStyles = StyleSheet.create({
   container: {
     alignItems: 'stretch',
-  },
-  divider: {
-    backgroundColor: theme.colors.backgroundLight,
-    padding: 8,
-  },
+  }
 });
 
 const Card = ({ repoinfo }) => {
   return (
-    <View>
-      <View style={cardStyles.container}>
-        <CardHeader image={repoinfo.ownerAvatarUrl} author={repoinfo.fullName} description={repoinfo.description} />
-        <CardBody language={repoinfo.language}/>
-        <CardFooter stars={repoinfo.stargazersCount} forks={repoinfo.forksCount} reviews={repoinfo.reviewCount} rating={repoinfo.ratingAverage} />
-      </View>
-      <View style={cardStyles.divider} />
+    <View style={cardStyles.container}>
+      <CardHeader image={repoinfo.ownerAvatarUrl} author={repoinfo.fullName} description={repoinfo.description} />
+      <CardBody language={repoinfo.language}/>
+      <CardFooter stars={repoinfo.stargazersCount} forks={repoinfo.forksCount} reviews={repoinfo.reviewCount} rating={repoinfo.ratingAverage} />
     </View>
   );
 };
