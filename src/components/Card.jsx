@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Pressable } from 'react-native';
 import Text from './Text';
+import { useNavigate } from 'react-router-native';
 
 export const formNumbers = (number) => number > 1000 ? (number / 1000).toFixed(1) + "k" : number;
 
@@ -53,6 +54,7 @@ const cardBodyStyles = StyleSheet.create({
   },
   text: {
     color: 'white',
+    textAlign: 'center',
   },
 });
 
@@ -113,12 +115,15 @@ const cardStyles = StyleSheet.create({
 });
 
 const Card = ({ repoinfo }) => {
+  const navigate = useNavigate();
   return (
-    <View style={cardStyles.container}>
-      <CardHeader image={repoinfo.ownerAvatarUrl} author={repoinfo.fullName} description={repoinfo.description} />
-      <CardBody language={repoinfo.language}/>
-      <CardFooter stars={repoinfo.stargazersCount} forks={repoinfo.forksCount} reviews={repoinfo.reviewCount} rating={repoinfo.ratingAverage} />
-    </View>
+    <Pressable onPress={() => navigate(`/repo/${repoinfo.id}`)}>
+      <View style={cardStyles.container}>
+        <CardHeader image={repoinfo.ownerAvatarUrl} author={repoinfo.fullName} description={repoinfo.description} />
+        <CardBody language={repoinfo.language}/>
+        <CardFooter stars={repoinfo.stargazersCount} forks={repoinfo.forksCount} reviews={repoinfo.reviewCount} rating={repoinfo.ratingAverage} />
+      </View>
+    </Pressable>
   );
 };
 
