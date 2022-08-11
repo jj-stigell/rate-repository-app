@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import Text from './Text';
 
-const formNumbers = (number) => number > 1000 ? (number / 1000).toFixed(1) + "k" : number;
+export const formNumbers = (number) => number > 1000 ? (number / 1000).toFixed(1) + "k" : number;
 
 const cardHeaderStyles = StyleSheet.create({
   container: {
