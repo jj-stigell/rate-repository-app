@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 import RepositoryItem from './RepositoryItem';
-import { formNumbers } from './Card'
+import { formNumbers } from '../utils/formNumbers';
 
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
@@ -53,7 +53,7 @@ describe('RepositoryList', () => {
     it('renders first repository information correctly', () => {
       const repo = repos[0];
       const { debug, getByText } = render(<RepositoryItem repoinfo={repo} />);
-      //debug();
+      debug();
       expect(getByText(repo.fullName)).toBeDefined();
       expect(getByText(repo.description)).toBeDefined();
       expect(getByText(repo.language)).toBeDefined();
@@ -66,7 +66,7 @@ describe('RepositoryList', () => {
     it('renders second repository information correctly', () => {
       const repo = repos[1];
       const { debug, getByText } = render(<RepositoryItem repoinfo={repo} />);
-      //debug();
+      debug();
       expect(getByText(repo.fullName)).toBeDefined();
       expect(getByText(repo.description)).toBeDefined();
       expect(getByText(repo.language)).toBeDefined();

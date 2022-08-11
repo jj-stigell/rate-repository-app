@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet, Pressable } from 'react-native';
 import Text from './Text';
 import { useNavigate } from 'react-router-native';
-
-export const formNumbers = (number) => number > 1000 ? (number / 1000).toFixed(1) + "k" : number;
+import { formNumbers } from '../utils/formNumbers';
 
 const cardHeaderStyles = StyleSheet.create({
   container: {
