@@ -11,3 +11,11 @@ export const AUTHENTICATE = gql`
     }
   }
 `;
+
+export const CREATEREVIEW = gql`
+  mutation CreateReview($input: CreateReviewInput!) {
+    createReview(review: $input){
+      repositoryId
+    }
+  }
+`;

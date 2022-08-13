@@ -1,52 +1,79 @@
-import { View, StyleSheet, Text, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { Link } from "react-router-native";
+import { View, ScrollView, Pressable, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-import theme from '../theme';
-import useMe from '../hooks/useMe';
-import useAuthStorage from '../hooks/useAuthStorage';
+import { Link } from 'react-router-native';
 import { useApolloClient } from '@apollo/client';
+import { useNavigate } from 'react-router-native';
+
+import theme from '../theme';
+import Text from './Text';
+import useAuthStorage from '../hooks/useAuthStorage';
+import useMe from '../hooks/useMe';
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.colors.background,
-    paddingBottom: 30,
-    paddingLeft: 10,
   },
-  text: {
+  scrollView: {
+    flexDirection: 'row',
+  },
+  tabTouchable: {
+    flexGrow: 0,
+  },
+  tabContainer: {
+    paddingHorizontal: 15,
+    paddingVertical: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabText: {
     color: 'white',
-    fontWeight: 'bold',
-    marginHorizontal: 10,
   },
 });
 
+const AppBarTab = ({ children, to, ...props }) => {
+  const content = (
+    <View style={styles.tabContainer} {...props}>
+      <Text fontWeight="bold" style={styles.tabText}>
+        {children}
+      </Text>
+    </View>
+  );
+
+  return to ? (
+    <Link to={to} {...props}>
+      {content}
+    </Link>
+  ) : (
+    <Pressable {...props}>{content}</Pressable>
+  );
+};
+
 const AppBar = () => {
   const { me } = useMe();
-  const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
+  const authStorage = useAuthStorage();
+  const navigate = useNavigate();
 
   const signOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
-  }
+    navigate('/');
+  };
 
   return (
     <View style={styles.container}>
-      <ScrollView horizontal>
-        <Link to="/">
-          <Text style={styles.text}>Repositories</Text>
-        </Link>
-        { !me ?
-          <Link to="/signin">
-            <Text style={styles.text}>Sign in</Text>
-          </Link>
-        :
-          <TouchableWithoutFeedback onPress={() => signOut()}>
-            <Text style={styles.text}>
-              Sign out
-            </Text>
-          </TouchableWithoutFeedback>
-        }
+      <ScrollView style={styles.scrollView} horizontal>
+        <AppBarTab to="/">Repositories</AppBarTab>
+        {me ? (
+          <View>
+            <AppBarTab to="/addreview">Create a review</AppBarTab>
+            <AppBarTab onPress={signOut}>Sign out</AppBarTab>
+          </View>
+        ) : (
+          <AppBarTab to="/signin">Sign in</AppBarTab>
+        )}
       </ScrollView>
     </View>
   );
