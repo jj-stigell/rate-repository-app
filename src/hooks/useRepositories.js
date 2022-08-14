@@ -4,7 +4,10 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = () => {
   const [repositories, setRepositories] = useState();
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, { fetchPolicy: 'cache-and-network'});
+  const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, { 
+    variables: { orderBy: "CREATED_AT", orderDirection: "DESC" },
+    fetchPolicy: 'cache-and-network',
+  });
 
   const fetchRepositories = async () => {
     if(data.repositories !== undefined) {
@@ -16,7 +19,7 @@ const useRepositories = () => {
     fetchRepositories();
   }, [data]);
 
-  return { repositories, loading, error, refetch: fetchRepositories };
+  return { repositories, loading, error, refetch, fetchRepositories };
 };
 
 export default useRepositories;
